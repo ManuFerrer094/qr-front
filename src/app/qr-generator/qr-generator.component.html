@@ -1,0 +1,26 @@
+<!-- src/app/qr-generator/qr-generator.component.html -->
+<div>
+  <h2>Generador de Código QR</h2>
+  <form (submit)="generateQRCode()">
+    <div>
+      <label for="text">Texto:</label>
+      <input type="text" id="text" [(ngModel)]="text" name="text" required>
+    </div>
+    <div>
+      <label for="format">Formato:</label>
+      <select id="format" [(ngModel)]="format" name="format">
+        <option value="svg">SVG</option>
+        <option value="png">PNG</option>
+      </select>
+    </div>
+    <button type="submit">Generar Código QR</button>
+  </form>
+</div>
+@if(qrCodeImageUrl){
+  <div>
+    <h3>Código QR Generado:</h3>
+    <img [src]="qrCodeImageUrl" alt="Código QR">
+  </div>
+} @else {
+  No state is selected.
+}
