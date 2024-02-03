@@ -15,11 +15,18 @@ export class QrGeneratorComponent {
   format: string = 'png';
   errorCorrectionLevel: string = 'H';
   qrCodeImageUrl: string = '';
+  name: string = '';
+  email: string = '';
+  phone: string = '';
+  address: string = '';
+  title: string = '';
+  url: string = '';
+  isVCardSelected: boolean = false;
 
   constructor(private http: HttpClient) { }
 
-  generateQRCode(): void {
-    const apiUrl = 'https://qrapi-rho.vercel.app/generate';
+  generateQR(): void {
+    const apiUrl = 'http://localhost:3000/generate';
     const requestBody = {
       text: this.text,
       format: this.format
@@ -34,4 +41,26 @@ export class QrGeneratorComponent {
       }
     );
   }
+
+  generateVCardQR(): void {
+    const apiUrl = 'http://localhost:3000/generate/vcard';
+    const requestBody = {
+      name: this.name,
+      email: this.email,
+      phone: this.phone,
+      address: this.address,
+      title: this.title,
+      url: this.url
+    };
+
+    this.http.post<any>(apiUrl, requestBody).subscribe(
+      (response) => {
+        this.qrCodeImageUrl = response.qr_code_url;
+      },
+      (error) => {
+        console.error('Error generating QR code:', error);
+      }
+    );
+  }
 }
+
