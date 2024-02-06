@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-qr-generator',
@@ -20,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatSelectModule,
     MatOptionModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule, MatTabsModule
   ],
   templateUrl: './qr-generator.component.html',
   styleUrl: './qr-generator.component.css'
@@ -45,27 +46,6 @@ export class QrGeneratorComponent {
     const requestBody = {
       text: this.text,
       format: this.format
-    };
-
-    this.http.post<any>(apiUrl, requestBody).subscribe(
-      (response) => {
-        this.qrCodeImageUrl = response.qr_code_url;
-      },
-      (error) => {
-        console.error('Error generating QR code:', error);
-      }
-    );
-  }
-
-  generateVCardQR(): void {
-    const apiUrl = 'http://localhost:3000/generate/vcard';
-    const requestBody = {
-      name: this.name,
-      email: this.email,
-      phone: this.phone,
-      address: this.address,
-      title: this.title,
-      url: this.url
     };
 
     this.http.post<any>(apiUrl, requestBody).subscribe(

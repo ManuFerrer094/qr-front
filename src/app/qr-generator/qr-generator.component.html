@@ -1,27 +1,55 @@
 <div>
   <h2>Generador de Código QR</h2>
-  <form (submit)="isVCardSelected ? generateVCardQR() : generateQR()">
-    <div>
-      <mat-form-field>
-        <mat-label for="text">Texto:</mat-label>
-        <input matInput type="text" id="text" [(ngModel)]="text" name="text" required>
-      </mat-form-field>
-    </div>
-    @if(!isVCardSelected) {
-    <div>
-      <mat-form-field>
-        <mat-label for="format">Formato:</mat-label>
-        <mat-select id="format" [(ngModel)]="format" name="format">
-          <mat-option value="svg">SVG</mat-option>
-          <mat-option value="png">PNG</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    }
-    <button type="submit" mat-raised-button>Generar Código QR</button>
-    <button type="button" mat-raised-button (click)="isVCardSelected = false">Generar Texto QR</button>
-  </form>
 </div>
+<mat-tab-group>
+  <!-- Pestaña 1 -->
+  <mat-tab label="Tab 1">
+    <ng-template matTabContent>
+      <h3>Formulario de la pestaña 1</h3>
+      <form (submit)="generateQR()">
+        <div>
+          <mat-form-field>
+            <mat-label for="text">Texto:</mat-label>
+            <input matInput type="text" id="text" [(ngModel)]="text" name="text" required>
+          </mat-form-field>
+        </div>
+        @if(!isVCardSelected) {
+        <div>
+          <mat-form-field>
+            <mat-label for="format">Formato:</mat-label>
+            <mat-select id="format" [(ngModel)]="format" name="format">
+              <mat-option value="svg">SVG</mat-option>
+              <mat-option value="png">PNG</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        }
+        <button type="submit" mat-raised-button>Generar Código QR</button>
+        <button type="button" mat-raised-button (click)="isVCardSelected = false">Generar Texto QR</button>
+      </form>
+    </ng-template>
+  </mat-tab>
+
+  <!-- Pestaña 2 -->
+  <mat-tab label="Tab 2">
+    <ng-template matTabContent>
+      <h3>Formulario de la pestaña 2</h3>
+      <form>
+        <mat-form-field>
+          <mat-label>Edad</mat-label>
+          <input matInput type="number" placeholder="Ingrese su edad">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Teléfono</mat-label>
+          <input matInput type="tel" placeholder="Ingrese su teléfono">
+        </mat-form-field>
+
+        <button mat-raised-button type="submit">Enviar</button>
+      </form>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
 
 <!-- Mostrar el código QR generado o un mensaje si no hay uno -->
 @if(qrCodeImageUrl) {
