@@ -1,1 +1,57 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+/* styles.css */
+
+/* Font Family */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Heading Styles */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* Paragraph Styles */
+p {
+  line-height: 1.5;
+}
+
+/* Button Styles */
+button {
+  font-weight: 500;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Input Styles */
+input, textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Link Styles */
+a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #0056b3;
+}

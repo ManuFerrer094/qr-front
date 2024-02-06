@@ -3,14 +3,63 @@
 </div>
 <mat-tab-group>
   <!-- Pestaña 1 -->
-  <mat-tab label="Tab 1">
+  <mat-tab label="Text QR">
     <ng-template matTabContent>
-      <h3>Formulario de la pestaña 1</h3>
+      <h3>Text QR</h3>
       <form (submit)="generateQR()">
         <div>
           <mat-form-field>
-            <mat-label for="text">Texto:</mat-label>
-            <input matInput type="text" id="text" [(ngModel)]="text" name="text" required>
+            <mat-label>Texto:</mat-label>
+            <input matInput [formControl]="text" placeholder="Ingrese el texto">
+            @if (!text.valid && (text.dirty || text.touched))
+            {
+              <mat-error>
+                Ingrese un texto válido.
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label for="format">Formato:</mat-label>
+            <mat-select id="format" [(ngModel)]="format" name="format">
+              <mat-option value="svg">SVG</mat-option>
+              <mat-option value="png">PNG</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <button type="submit" mat-raised-button>Generar Código QR</button>
+      </form>
+      <!-- Mostrar el código QR generado o un mensaje si no hay uno -->
+      @if(qrCodeImageText) {
+        <div>
+            <div>
+              <h3>Código QR Generado:</h3>
+              <img [src]="qrCodeImageText" alt="Código QR">
+            </div>
+        </div>
+      }@else {
+        <div>
+        </div>
+      }
+    </ng-template>
+  </mat-tab>
+
+  <!-- Pestaña 2 -->
+  <mat-tab label="Url QR">
+    <ng-template matTabContent>
+      <h3>Url QR</h3>
+      <form (submit)="generateUrlQR()">
+        <div>
+          <mat-form-field>
+            <mat-label>URL</mat-label>
+            <input matInput [formControl]="url" placeholder="Ingrese la URL">
+            @if (!url.valid && (url.dirty || url.touched))
+            {
+              <mat-error>
+                Ingrese una URL válida (debe comenzar con 'http' o 'https').
+              </mat-error>
+            }
           </mat-form-field>
         </div>
         @if(!isVCardSelected) {
@@ -25,42 +74,19 @@
         </div>
         }
         <button type="submit" mat-raised-button>Generar Código QR</button>
-        <button type="button" mat-raised-button (click)="isVCardSelected = false">Generar Texto QR</button>
       </form>
-    </ng-template>
-  </mat-tab>
-
-  <!-- Pestaña 2 -->
-  <mat-tab label="Tab 2">
-    <ng-template matTabContent>
-      <h3>Formulario de la pestaña 2</h3>
-      <form>
-        <mat-form-field>
-          <mat-label>Edad</mat-label>
-          <input matInput type="number" placeholder="Ingrese su edad">
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Teléfono</mat-label>
-          <input matInput type="tel" placeholder="Ingrese su teléfono">
-        </mat-form-field>
-
-        <button mat-raised-button type="submit">Enviar</button>
-      </form>
+      <!-- Mostrar el código QR generado o un mensaje si no hay uno -->
+      @if(qrCodeImageUrl) {
+        <div>
+            <div>
+              <h3>Código QR Generado:</h3>
+              <img [src]="qrCodeImageUrl" alt="Código QR">
+            </div>
+        </div>
+      }@else {
+        <div>
+        </div>
+      }
     </ng-template>
   </mat-tab>
 </mat-tab-group>
-
-<!-- Mostrar el código QR generado o un mensaje si no hay uno -->
-@if(qrCodeImageUrl) {
-  <div>
-      <div>
-        <h3>Código QR Generado:</h3>
-        <img [src]="qrCodeImageUrl" alt="Código QR">
-      </div>
-  </div>
-}@else {
-  <div>
-      <p>No hay ningún código QR generado.</p>
-  </div>
-}
