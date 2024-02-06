@@ -2,58 +2,37 @@
   <h2>Generador de Código QR</h2>
   <form (submit)="isVCardSelected ? generateVCardQR() : generateQR()">
     <div>
-      <label for="text">Texto:</label>
-      <input type="text" id="text" [(ngModel)]="text" name="text" required>
+      <mat-form-field>
+        <mat-label for="text">Texto:</mat-label>
+        <input matInput type="text" id="text" [(ngModel)]="text" name="text" required>
+      </mat-form-field>
     </div>
     @if(!isVCardSelected) {
-      <div>
-        <label for="format">Formato:</label>
-        <select id="format" [(ngModel)]="format" name="format">
-          <option value="svg">SVG</option>
-          <option value="png">PNG</option>
-        </select>
-      </div>
+    <div>
+      <mat-form-field>
+        <mat-label for="format">Formato:</mat-label>
+        <mat-select id="format" [(ngModel)]="format" name="format">
+          <mat-option value="svg">SVG</mat-option>
+          <mat-option value="png">PNG</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
     }
-    <button type="submit">Generar Código QR</button>
-    <button type="button" (click)="isVCardSelected = true">Generar vCard</button>
-    <button type="button" (click)="isVCardSelected = false">Generar Texto QR</button>
+    <button type="submit" mat-raised-button>Generar Código QR</button>
+    <button type="button" mat-raised-button (click)="isVCardSelected = false">Generar Texto QR</button>
   </form>
 </div>
-
-<!-- Campos adicionales para VCard -->
-@if(isVCardSelected) {
-  <div>
-    <label for="name">Nombre:</label>
-    <input type="text" id="name" [(ngModel)]="name" name="name" required>
-  </div>
-  <div>
-    <label for="email">Correo Electrónico:</label>
-    <input type="email" id="email" [(ngModel)]="email" name="email" required>
-  </div>
-  <div>
-    <label for="phone">Teléfono:</label>
-    <input type="tel" id="phone" [(ngModel)]="phone" name="phone" required>
-  </div>
-  <div>
-    <label for="address">Dirección:</label>
-    <input type="text" id="address" [(ngModel)]="address" name="address">
-  </div>
-  <div>
-    <label for="title">Título:</label>
-    <input type="text" id="title" [(ngModel)]="title" name="title">
-  </div>
-  <div>
-    <label for="url">URL:</label>
-    <input type="url" id="url" [(ngModel)]="url" name="url">
-  </div>
-}
 
 <!-- Mostrar el código QR generado o un mensaje si no hay uno -->
 @if(qrCodeImageUrl) {
   <div>
-    <h3>Código QR Generado:</h3>
-    <img [src]="qrCodeImageUrl" alt="Código QR">
+      <div>
+        <h3>Código QR Generado:</h3>
+        <img [src]="qrCodeImageUrl" alt="Código QR">
+      </div>
   </div>
-} @else {
-  <p>No state is selected.</p>
+}@else {
+  <div>
+      <p>No hay ningún código QR generado.</p>
+  </div>
 }
