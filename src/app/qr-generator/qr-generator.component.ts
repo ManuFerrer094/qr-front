@@ -53,7 +53,7 @@ export class QrGeneratorComponent {
       return;
     }
 
-    const apiUrl = 'http://localhost:3000/generate';
+    const apiUrl = 'https://qrapi-rho.vercel.app/generate';
     const requestBody = {
       text: this.text.value,
       format: this.format
@@ -70,7 +70,7 @@ export class QrGeneratorComponent {
   }
 
   generateUrlQR() : void {
-    const apiUrl = 'http://localhost:3000/generate/url';
+    const apiUrl = 'https://qrapi-rho.vercel.app/generate/url';
 
     if (this.url.invalid) {
       this.url.markAsTouched();
