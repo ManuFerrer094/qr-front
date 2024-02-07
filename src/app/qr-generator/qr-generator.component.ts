@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { QrTextComponent } from "../qr-text/qr-text.component";
 import { QrUrlComponent } from "../qr-url/qr-url.component";
 import { MatTabsModule } from '@angular/material/tabs';
+import { QrVcardComponent } from "../qr-vcard/qr-vcard.component";
 
 
 @Component({
@@ -12,7 +13,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     imports: [
         QrTextComponent,
         QrUrlComponent,
-        MatTabsModule
+        MatTabsModule,
+        QrVcardComponent
     ]
 })
 export class QrGeneratorComponent {

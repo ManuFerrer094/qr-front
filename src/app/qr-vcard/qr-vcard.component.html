@@ -1,0 +1,70 @@
+<div class="flex-container">
+  <!-- Contenedor para el formulario de vCard -->
+  <div class="form-container">
+    <h3>Introduce los datos de vCard aquí</h3>
+    <form (submit)="generateVCardQR()">
+      <div>
+        <mat-form-field>
+          <mat-label>Nombre:</mat-label>
+          <input matInput [(ngModel)]="vcardData.name" name="name" placeholder="Nombre" required>
+          @if (vcardData.name.invalid && (vcardData.name.dirty || vcardData.name.touched))
+          {
+            <mat-error>Introduce un nombre válido.</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Número de teléfono:</mat-label>
+          <input matInput [(ngModel)]="vcardData.phoneNumber" name="phoneNumber" placeholder="Número de teléfono" required>
+          @if (vcardData.phoneNumber.invalid && (vcardData.phoneNumber.dirty || vcardData.phoneNumber.touched))
+          {
+            <mat-error>Introduce un número de teléfono válido.</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Correo electrónico:</mat-label>
+          <input matInput [(ngModel)]="vcardData.email" name="email" placeholder="Correo electrónico" required>
+          @if (vcardData.email.invalid && (vcardData.email.dirty || vcardData.email.touched))
+          {
+            <mat-error>Introduce un correo electrónico válido.</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Dirección:</mat-label>
+          <input matInput [(ngModel)]="vcardData.address" name="address" placeholder="Dirección" required>
+          @if (vcardData.address.invalid && (vcardData.address.dirty || vcardData.address.touched))
+          {
+            <mat-error>Introduce una dirección válida.</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary">Generar vCard QR</button>
+    </form>
+  </div>
+
+  <!-- Contenedor para el código QR generado de vCard -->
+  <div class="qr-container">
+    @if(qrCodeImageText)
+    {
+    <div>
+      <h3>Código QR Generado:</h3>
+      <img #qrCodeImage [src]="qrCodeImageText" alt="Código QR">
+      <div class="qr-buttons">
+        <button mat-raised-button color="primary" (click)="downloadQR()">Descargar QR</button>
+      </div>
+    </div>
+    }
+    @else
+    {
+    <div>
+      <h3>Código QR</h3>
+      <img src="assets/qr-base.png" alt="Código QR" class="default-qr">
+    </div>
+    }
+  </div>
+</div>
