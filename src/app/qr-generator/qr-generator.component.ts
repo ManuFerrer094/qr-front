@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,22 +30,22 @@ import { MatTabsModule } from '@angular/material/tabs';
   styleUrl: './qr-generator.component.css'
 })
 export class QrGeneratorComponent {
-  text: FormControl = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]);
+  text: FormControl = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]);
   format: string = 'png';
   errorCorrectionLevel: string = 'H';
   qrCodeImageUrl: string = '';
   qrCodeImageText: string = '';
-  name: string = '';
-  email: string = '';
-  phone: string = '';
-  address: string = '';
-  title: string = '';
-  url: FormControl = new FormControl('', [Validators.required, Validators.pattern('(http|https)://.+')]);
-  isVCardSelected: boolean = false;
+  url: FormControl = new FormControl('', [Validators.required, Validators.pattern('(http|https|Http|Https)://.+')]);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.text.valueChanges.subscribe(() => {
+      this.generateQR();
+    });
 
-  isTextValid: boolean = true;
+    this.url.valueChanges.subscribe(() => {
+      this.generateUrlQR();
+    });
+  }
 
   generateQR(): void {
     if (this.text.invalid) {
@@ -69,26 +69,39 @@ export class QrGeneratorComponent {
     );
   }
 
-  generateUrlQR() : void {
-    const apiUrl = 'https://qrapi-rho.vercel.app/generate/url';
+  generateUrlQR(): void {
+    this.url.valueChanges.subscribe(() => {
+      if (this.url.invalid && (this.url.dirty || this.url.touched)) {
+        console.error('La URL no es válida.');
+      } else {
+        const apiUrl = 'https://qrapi-rho.vercel.app/generate/url';
+        const requestBody = { url: this.url.value };
 
-    if (this.url.invalid) {
-      this.url.markAsTouched();
-      return;
-    }
-
-    const requestBody = {
-      url: this.url.value
-    };
-
-    this.http.post<any>(apiUrl, requestBody).subscribe(
-      (response) => {
-        this.qrCodeImageUrl = response.qr_code_url;
-      },
-      (error) => {
-        console.error('Error generating QR code:', error);
+        this.http.post<any>(apiUrl, requestBody).subscribe(
+          (response) => {
+            this.qrCodeImageUrl = response.qr_code_url;
+          },
+          (error) => {
+            console.error('Error generating URL QR code:', error);
+          }
+        );
       }
-    );
+    });
+  }
+
+
+  @ViewChild('qrCodeImage')
+  qrCodeImage!: ElementRef;
+
+  downloadQR() {
+    const qrImageElement = this.qrCodeImage.nativeElement;
+    const qrImageURL = qrImageElement.src;
+    const a = document.createElement('a');
+    a.href = qrImageURL;
+    a.download = 'codigo_qr.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 }
 

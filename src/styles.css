@@ -1,24 +1,18 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-/* styles.css */
-
-/* Font Family */
 body {
   font-family: 'Roboto', sans-serif;
 }
 
-/* Heading Styles */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   line-height: 1.2;
 }
 
-/* Paragraph Styles */
 p {
   line-height: 1.5;
 }
 
-/* Button Styles */
 button {
   font-weight: 500;
   border: none;
@@ -32,7 +26,6 @@ button:hover {
   background-color: #f0f0f0;
 }
 
-/* Input Styles */
 input, textarea {
   padding: 8px;
   border: 1px solid #ccc;
@@ -45,7 +38,6 @@ input:focus, textarea:focus {
   border-color: #007bff;
 }
 
-/* Link Styles */
 a {
   color: #007bff;
   text-decoration: none;
@@ -54,4 +46,43 @@ a {
 
 a:hover {
   color: #0056b3;
+}
+
+.mat-mdc-form-field {
+  min-width: 90%;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.form-container,
+.qr-container {
+  flex: 1;
+  padding: 10px;
+  max-width: 50%;
+}
+
+.qr-container {
+  text-align: center;
+}
+
+.default-qr {
+  width: 100%;
+  max-width: 250px;
+  opacity: 0.1;
+}
+
+.mat-mdc-form-field {
+  min-width: 90% !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .flex-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
