@@ -43,12 +43,12 @@ export class QrVcardComponent {
       return;
     }
 
-    const apiUrl = 'http://localhost:3000/generate/vcard';
+    const apiUrl = 'https://qrapi-rho.vercel.app/generate/vcard';
     const requestBody = {
-      name: this.vcardData.name,
-      phoneNumber: this.vcardData.phoneNumber,
-      email: this.vcardData.email,
-      address: this.vcardData.address
+      name: this.vcardData.name.value,
+      phoneNumber: this.vcardData.phoneNumber.value,
+      email: this.vcardData.email.value,
+      address: this.vcardData.address.value
     };
 
     this.http.post<any>(apiUrl, requestBody).subscribe(
@@ -62,7 +62,8 @@ export class QrVcardComponent {
   }
 
   isValidVCardData(): boolean {
-    return !!this.vcardData.name && !!this.vcardData.phoneNumber && !!this.vcardData.email && !!this.vcardData.address;
+    const { name, phoneNumber, email, address } = this.vcardData;
+    return name.valid && phoneNumber.valid && email.valid && address.valid;
   }
 
   @ViewChild('qrCodeImage') qrCodeImage!: ElementRef;
