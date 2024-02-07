@@ -1,0 +1,35 @@
+<div class="flex-container">
+  <div class="form-container">
+    <h3>Escribe tu URL aquí</h3>
+    <form (submit)="generateUrlQR()">
+      <div>
+        <mat-form-field>
+          <mat-label>URL</mat-label>
+          <input matInput [formControl]="url" placeholder="Ingrese la URL">
+          @if (url.invalid && (url.dirty || url.touched))
+          {
+            <mat-error>
+              Ingrese una URL válida (debe comenzar con 'http' o 'https').
+            </mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="qr-container">
+    @if(qrCodeImageUrl) {
+    <div>
+      <h3>Código QR Generado:</h3>
+      <img #qrCodeImage [src]="qrCodeImageUrl" alt="Código QR">
+      <div class="qr-buttons">
+        <button mat-raised-button color="primary" (click)="downloadQR()">Descargar QR</button>
+      </div>
+    </div>
+    } @else {
+    <div>
+      <h3>Código QR</h3>
+      <img src="assets/qr-base.png" alt="Código QR" class="default-qr">
+    </div>
+    }
+  </div>
+</div>

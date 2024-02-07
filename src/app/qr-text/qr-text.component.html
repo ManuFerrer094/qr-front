@@ -1,0 +1,35 @@
+<div class="flex-container">
+  <div class="form-container">
+    <h3>Escribe tu texto aquí</h3>
+    <form (submit)="generateQR()">
+      <div>
+        <mat-form-field>
+          <mat-label>Texto:</mat-label>
+          <input matInput [formControl]="text" placeholder="Ingrese el texto">
+          @if (!text.valid && (text.dirty || text.touched))
+          {
+            <mat-error>
+              Ingrese un texto válido.
+            </mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="qr-container">
+    @if(qrCodeImageText) {
+    <div>
+      <h3>Código QR Generado:</h3>
+      <img #qrCodeImage [src]="qrCodeImageText" alt="Código QR">
+      <div class="qr-buttons">
+        <button mat-raised-button color="primary" (click)="downloadQR()">Descargar QR</button>
+      </div>
+    </div>
+    } @else {
+    <div>
+      <h3>Código QR</h3>
+      <img src="assets/qr-base.png" alt="Código QR" class="default-qr">
+    </div>
+    }
+  </div>
+</div>
