@@ -1,13 +1,57 @@
-<mat-toolbar>
-  <span>Qr<strong>Generator</strong></span>
-  <span class="example-spacer"></span>
-  <a mat-icon-button class="example-icon github-icon" aria-label="GitHub" target="_blank" href="https://github.com/tuUsuario">
-    <mat-icon svgIcon="github"></mat-icon>
-  </a>
-  <a mat-icon-button class="example-icon" aria-label="API" target="_blank" href="https://qrapi-rho.vercel.app/">
-    <mat-icon>api</mat-icon>
-  </a>
-  <a mat-icon-button class="example-icon" aria-label="LinkedIn" target="_blank" href="https://www.linkedin.com/in/manuferrer/">
-    <mat-icon>person</mat-icon>
-  </a>
+<mat-toolbar class="modern-navbar">
+  <div class="navbar-brand">
+    <span class="brand-text">{{ translate('app.title') }}</span>
+  </div>
+  
+  <span class="navbar-spacer"></span>
+  
+  <div class="navbar-actions">
+    <!-- Language Toggle -->
+    <button 
+      mat-icon-button 
+      class="navbar-button"
+      (click)="toggleLanguage()"
+      [matTooltip]="translate('nav.language')"
+      aria-label="Toggle language">
+      <span class="language-text">{{ getLanguageText() }}</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button 
+      mat-icon-button 
+      class="navbar-button"
+      (click)="toggleTheme()"
+      [matTooltip]="currentTheme === 'light' ? translate('nav.theme.dark') : translate('nav.theme.light')"
+      aria-label="Toggle theme">
+      <mat-icon>{{ getThemeIcon() }}</mat-icon>
+    </button>
+
+    <!-- External Links -->
+    <button 
+      mat-icon-button 
+      class="navbar-button external-link"
+      [matTooltip]="translate('nav.github')"
+      aria-label="GitHub"
+      (click)="openGitHub()">
+      <mat-icon>code</mat-icon>
+    </button>
+
+    <button 
+      mat-icon-button 
+      class="navbar-button external-link"
+      [matTooltip]="translate('nav.api')"
+      aria-label="API"
+      (click)="openAPI()">
+      <mat-icon>api</mat-icon>
+    </button>
+
+    <button 
+      mat-icon-button 
+      class="navbar-button external-link"
+      [matTooltip]="translate('nav.linkedin')"
+      aria-label="LinkedIn"
+      (click)="openLinkedIn()">
+      <mat-icon>person</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>

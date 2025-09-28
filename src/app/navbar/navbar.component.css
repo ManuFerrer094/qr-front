@@ -1,3 +1,107 @@
-.example-spacer {
+.modern-navbar {
+  background: var(--color-surface) !important;
+  color: var(--color-on-surface) !important;
+  box-shadow: var(--shadow-md);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 var(--spacing-lg);
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  transition: all var(--transition-medium);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.brand-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+.navbar-spacer {
   flex: 1 1 auto;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.navbar-button {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: var(--border-radius-md) !important;
+  transition: all var(--transition-fast) !important;
+  color: var(--color-on-surface) !important;
+  position: relative;
+}
+
+.navbar-button:hover {
+  background-color: var(--color-surface-variant) !important;
+  transform: scale(1.05);
+}
+
+.navbar-button:active {
+  transform: scale(0.95);
+}
+
+.navbar-button.external-link {
+  opacity: 0.8;
+}
+
+.navbar-button.external-link:hover {
+  opacity: 1;
+  color: var(--color-primary) !important;
+}
+
+.language-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .modern-navbar {
+    padding: 0 var(--spacing-md);
+  }
+  
+  .brand-text {
+    font-size: 1.25rem;
+  }
+  
+  .navbar-actions {
+    gap: var(--spacing-xs);
+  }
+  
+  .navbar-button {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .modern-navbar {
+    padding: 0 var(--spacing-sm);
+  }
+  
+  .brand-text {
+    font-size: 1.125rem;
+  }
+  
+  /* Hide some buttons on very small screens */
+  .navbar-button.external-link:nth-last-child(n+3) {
+    display: none;
+  }
 }

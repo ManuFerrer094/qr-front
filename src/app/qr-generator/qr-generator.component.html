@@ -1,14 +1,25 @@
-<div class="container">
-  <h2>Generador de Código QR</h2>
+<div class="generator-container">
+  <div class="generator-header">
+    <h2 class="generator-title">{{ translate('app.subtitle') }}</h2>
+  </div>
+  
+  <mat-tab-group class="modern-tabs" animationDuration="300ms">
+    <mat-tab [label]="translate('tabs.text')">
+      <div class="tab-content">
+        <app-qr-text></app-qr-text>
+      </div>
+    </mat-tab>
+    
+    <mat-tab [label]="translate('tabs.url')">
+      <div class="tab-content">
+        <app-qr-url></app-qr-url>
+      </div>
+    </mat-tab>
+    
+    <mat-tab [label]="translate('tabs.vcard')">
+      <div class="tab-content">
+        <app-qr-vcard></app-qr-vcard>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>
-<mat-tab-group>
-  <mat-tab label="Text QR">
-    <app-qr-text></app-qr-text>
-  </mat-tab>
-  <mat-tab label="Url QR">
-    <app-qr-url></app-qr-url>
-  </mat-tab>
-  <mat-tab label="Vcard QR">
-    <app-qr-vcard></app-qr-vcard>
-  </mat-tab>
-</mat-tab-group>
