@@ -1,35 +1,79 @@
-<div class="flex-container">
-  <div class="form-container">
-    <h3>Escribe tu URL aquí</h3>
-    <form (submit)="generateUrlQR()">
-      <div>
-        <mat-form-field>
-          <mat-label>URL</mat-label>
-          <input matInput [formControl]="url" placeholder="Ingrese la URL">
-          @if (url.invalid && (url.dirty || url.touched))
-          {
-            <mat-error>
-              Ingrese una URL válida (debe comenzar con 'http' o 'https').
-            </mat-error>
+<div class="qr-url-container">
+  <div class="flex-container">
+    <!-- Form Section -->
+    <div class="form-container modern-card">
+      <h3 class="section-title">{{ translate('url.title') }}</h3>
+      
+      <form class="qr-form" (ngSubmit)="generateUrlQR()">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>{{ translate('url.label') }}</mat-label>
+          <input 
+            matInput 
+            [formControl]="url" 
+            [placeholder]="translate('url.placeholder')"
+            type="url">
+          @if (url.hasError('required')) {
+            <mat-error>{{ translate('url.error') }}</mat-error>
+          }
+          @if (url.hasError('pattern')) {
+            <mat-error>{{ translate('url.error') }}</mat-error>
           }
         </mat-form-field>
-      </div>
-    </form>
-  </div>
-  <div class="qr-container">
-    @if(qrCodeImageUrl) {
-    <div>
-      <h3>Código QR Generado:</h3>
-      <img #qrCodeImage [src]="qrCodeImageUrl" alt="Código QR">
-      <div class="qr-buttons">
-        <button mat-raised-button color="primary" (click)="downloadQR()">Descargar QR</button>
+      </form>
+      
+      <div class="form-info">
+        <p class="info-text">
+          <mat-icon>link</mat-icon>
+          {{ translate('url.title') }}
+        </p>
       </div>
     </div>
-    } @else {
-    <div>
-      <h3>Código QR</h3>
-      <img src="assets/qr-base.png" alt="Código QR" class="default-qr">
+
+    <!-- QR Display Section -->
+    <div class="qr-container modern-card">
+      @if (qrCodeImageUrl && !isGenerating) {
+        <div class="qr-result">
+          <h3 class="section-title">{{ translate('qr.generated') }}</h3>
+          <div class="qr-display has-qr">
+            <img 
+              #qrCodeImage 
+              [src]="qrCodeImageUrl" 
+              [alt]="translate('qr.generated')"
+              class="generated-qr">
+          </div>
+          <div class="qr-buttons">
+            <button 
+              mat-raised-button 
+              color="primary" 
+              (click)="downloadQR()"
+              class="modern-button">
+              <mat-icon>download</mat-icon>
+              {{ translate('qr.download') }}
+            </button>
+          </div>
+        </div>
+      } @else if (isGenerating) {
+        <div class="qr-loading">
+          <h3 class="section-title">{{ translate('qr.default') }}</h3>
+          <div class="qr-display">
+            <div class="loading-spinner">
+              <mat-icon class="loading">refresh</mat-icon>
+            </div>
+            <p>Generando...</p>
+          </div>
+        </div>
+      } @else {
+        <div class="qr-placeholder">
+          <h3 class="section-title">{{ translate('qr.default') }}</h3>
+          <div class="qr-display">
+            <img 
+              src="assets/qr-base.png" 
+              [alt]="translate('qr.default')" 
+              class="default-qr">
+            <p class="placeholder-text">{{ translate('url.placeholder') }}</p>
+          </div>
+        </div>
+      }
     </div>
-    }
   </div>
 </div>

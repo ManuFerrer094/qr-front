@@ -1,0 +1,124 @@
+.qr-text-container {
+  width: 100%;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-on-surface);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.qr-form {
+  margin-bottom: var(--spacing-lg);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-info {
+  background-color: var(--color-surface-variant);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
+  border-left: 4px solid var(--color-primary);
+}
+
+.info-text {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-on-surface-variant);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.info-text mat-icon {
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-primary);
+}
+
+.qr-result,
+.qr-loading,
+.qr-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: var(--spacing-xl) 0;
+}
+
+.loading-spinner mat-icon.loading {
+  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
+  animation: spin 1s linear infinite;
+  color: var(--color-primary);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.placeholder-text {
+  color: var(--color-on-surface-variant);
+  font-style: italic;
+  text-align: center;
+  margin-top: var(--spacing-md);
+}
+
+.qr-buttons .modern-button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  min-width: 150px;
+  justify-content: center;
+}
+
+/* Form field customization */
+.mat-mdc-form-field {
+  margin-bottom: var(--spacing-md);
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-focus-overlay {
+  opacity: 0.1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.125rem;
+  }
+  
+  .form-container,
+  .qr-container {
+    padding: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1rem;
+  }
+  
+  .form-container,
+  .qr-container {
+    padding: var(--spacing-md);
+  }
+  
+  .qr-buttons .modern-button {
+    width: 100%;
+  }
+}
